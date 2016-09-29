@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "YouPause",
+  "description": "Allows to pause YouTube videos using hotkeys",
+  "version": "1.0",
+  "background": {
+    "persistent": false,
+    "scripts": ["scripts/bg.js"]
+  },  
+  "browser_action": {
+    "default_icon": "images/youtube-pause-128.png",
+    "default_title": "YouTube Pause"
+  },
+  "commands": {
+          "pause-youtube-command": {
+            "suggested_key": {
+              "default": "Ctrl+Shift+1"
+            },
+            "description": "Pauses all YouTube videos",
+            "global": true
+          }
+  },
+  "permissions": [
+    "tabs",
+    "*://*.youtube.com/watch*"
+  ]
+}
