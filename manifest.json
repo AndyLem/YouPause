@@ -3,9 +3,9 @@
 
   "name": "YouPause",
   "description": "Allows to pause YouTube videos using hotkeys",
-  "version": "1.0",
+  "version": "2.0",
   "background": {
-    "persistent": false,
+    "persistent": true,
     "scripts": ["scripts/bg.js"]
   },  
   "browser_action": {
@@ -13,13 +13,20 @@
     "default_title": "YouTube Pause"
   },
   "commands": {
-          "pause-youtube-command": {
-            "suggested_key": {
-              "default": "Ctrl+Shift+1"
-            },
-            "description": "Pauses all YouTube videos",
-            "global": true
-          }
+    "pause-youtube-command": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+1"
+      },
+      "description": "Pauses all YouTube videos",
+      "global": true
+    },
+    "resume-youtube-command": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+2"
+      },
+      "description": "Resumes previously paused YouTube videos",
+      "global": true
+    }
   },
   "permissions": [
     "tabs",
