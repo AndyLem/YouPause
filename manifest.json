@@ -3,7 +3,7 @@
 
   "name": "YouPause",
   "description": "Allows to pause YouTube videos using hotkeys",
-  "version": "2.0",
+  "version": "2.1",
   "background": {
     "persistent": true,
     "scripts": ["scripts/bg.js"]
@@ -30,6 +30,7 @@
   },
   "permissions": [
     "tabs",
-    "*://*.youtube.com/watch*"
+    "*://*.youtube.com/watch*",
+    "notifications"
   ]
 }

@@ -23,8 +23,20 @@ chrome.tabs.onRemoved.addListener(function(tabId, info){
     removeTabFromPausedList(tabId);
 });
 
+function showNotification(id, message){
+    chrome.notifications.create(id,
+    {
+        type:"basic",
+        iconUrl: 'images/youtube-pause-128.png',
+        title: "YouTube Pause",
+        message: message,
+    },
+    function(notificationId) {});
+};
+
 function handlePauseCommand(){
     pausedTabs = [];
+    var pausedVideosCount = 0;
     chrome.windows.getAll({populate:true}, function(windowsList){
         for (var i=0;i<windowsList.length;i++){
             for (var j=0;j<windowsList[i].tabs.length;j++){
@@ -39,13 +51,21 @@ function handlePauseCommand(){
                         {
                             file: "scripts/pauser.js"
                         });
+                    pausedVideosCount++;
                 }
             }
         }
     });
+    if (pausedVideosCount > 0) {
+        showNotification("pauseNotification", "Paused "+pausedVideosCount+" videos");
+    }
+
 };
 
+
+
 function handleResumeCommand(){
+    var resumedVideosCount = 0;
     for (var i=0;i<pausedTabs.length;i++){
         console.log('resuming a player on '+ pausedTabs[i])
         try {
@@ -53,12 +73,17 @@ function handleResumeCommand(){
                 {
                     file: "scripts/resumer.js"
                 });
+                resumedVideosCount++;
         } catch (error) {
             console.log('error occured, removing a tab from the list.')
             console.log(error);
             removeTabFromPausedList(pausedTabs[i]);            
         }
     }
+    if (resumedVideosCount > 0){
+        showNotification("resumeNotification", "Resumed "+resumedVideosCount+" videos");
+    }
+
 };
 
 
