@@ -10,7 +10,6 @@ else {
     console.log('player is running');
     var pauseBtn = document.getElementsByClassName('ytp-play-button ytp-button')[0];
     if (pauseBtn){
-        console.log(pauseBtn);
         pauseBtn.click();
         isPauseHandled = true;
     }

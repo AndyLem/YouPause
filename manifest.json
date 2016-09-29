@@ -17,7 +17,7 @@
       "suggested_key": {
         "default": "Ctrl+Shift+1"
       },
-      "description": "Pauses all YouTube videos",
+      "description": "Pauses all running YouTube videos",
       "global": true
     },
     "resume-youtube-command": {
