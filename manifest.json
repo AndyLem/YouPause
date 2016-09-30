@@ -10,7 +10,6 @@
       "scripts/consts.js",
       "scripts/globals.js",
       "scripts/utils.js",
-      "scripts/notifications.js",
       "scripts/handlers.js",
       "scripts/bg.js"]
   },  
