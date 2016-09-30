@@ -3,7 +3,7 @@
 
   "name": "YouPause",
   "description": "Allows to pause YouTube videos using hotkeys",
-  "version": "2.1",
+  "version": "3.0",
   "background": {
     "persistent": true,
     "scripts": [
