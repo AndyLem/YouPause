@@ -11,13 +11,16 @@ function removeTabFromPausedList(tabId){
 };
 
 function showNotification(id, message, buttons, iconUrl){
-    chrome.notifications.create(id,
-    {
-        type:"basic",
-        iconUrl: iconUrl || 'images/youtube-pause-128-borders.png',
-        title: "YouTube Pause",
-        message: message,
-        buttons: buttons
-    },
-    function(notificationId) { });
+    chrome.notifications.getAll(function(list){
+        if (list[id]) chrome.notifications.clear(id);
+        chrome.notifications.create(id,
+            {
+                type:"basic",
+                iconUrl: iconUrl || 'images/youtube-pause-128-borders.png',
+                title: "YouTube Pause",
+                message: message,
+                buttons: buttons
+            });
+
+    });
 };
