@@ -28,9 +28,16 @@ chrome.runtime.onMessage.addListener(
          sendResponse('tab is removed from paused list');
     }
     pauseCommandsSent--;
-    if (pauseCommandsSent == 0)
-        showNotification(PauseNotificationId, "Paused "+videosPaused+ (videosPaused > 1 ? " videos" : " video"),
-        [{title: "Resume back"}]);
+    if (pauseCommandsSent == 0) {
+        if (videosPaused > 0) {
+            showNotification(PauseNotificationId, "Paused "+videosPaused+ (videosPaused > 1 ? " videos" : " video"),
+            [{title: "Resume back"}]);
+        }
+        else {
+            pausedTabs = lastPausedTabs;
+            showNotification(NothingToPauseNotification, "No videos to pause");
+        }
+    }
 });
 
 chrome.notifications.onButtonClicked.addListener(function(id, index){

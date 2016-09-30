@@ -1,4 +1,5 @@
 function handlePauseCommand(){
+    lastPausedTabs = pausedTabs;
     pausedTabs = [];
     
     chrome.windows.getAll({populate:true}, function(windowsList){
