@@ -17,8 +17,10 @@ else {
 
 chrome.runtime.sendMessage(
     {
+        command: 'pause-youtube-command',
         playerWasRunning: isPlayerRunning, 
-        pauseHandled: isPauseHandled
+        pauseHandled: isPauseHandled,
+        resumeHandled: false
     }, 
     function(response) {
         console.log(response);
