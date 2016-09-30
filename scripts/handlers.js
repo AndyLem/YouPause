@@ -17,7 +17,7 @@ function handlePauseCommand(){
                     pauseCommandsSent++;
                     chrome.tabs.executeScript(tab.id, 
                         {
-                            file: "scripts/pauser.js"
+                            file: "scripts/client/pauser.js"
                         });
                 }
             }
@@ -34,7 +34,7 @@ function handleResumeCommand(){
             resumeCommandsSent++;
             chrome.tabs.executeScript(pausedTabs[i], 
                 {
-                    file: "scripts/resumer.js"
+                    file: "scripts/client/resumer.js"
                 });
                 
         } catch (error) {
