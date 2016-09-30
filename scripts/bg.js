@@ -1,9 +1,9 @@
 chrome.commands.onCommand.addListener(function(command){
     console.log("command "+command);
-    if (command == 'pause-youtube-command'){
+    if (command == PauseCommand){
         handlePauseCommand();
     }
-    if (command == 'resume-youtube-command'){
+    if (command == ResumeCommand){
         handleResumeCommand();
     }
 });
@@ -29,5 +29,15 @@ chrome.runtime.onMessage.addListener(
     }
     pauseCommandsSent--;
     if (pauseCommandsSent == 0)
-        showNotification("pauseNotification", "Paused "+videosPaused+ (videosPaused > 1 ? " videos" : " video"));
+        showNotification(PauseNotificationId, "Paused "+videosPaused+ (videosPaused > 1 ? " videos" : " video"),
+        [{title: "Resume back"}]);
+});
+
+chrome.notifications.onButtonClicked.addListener(function(id, index){
+    if (id == PauseNotificationId) {
+        handlePauseNotificationButtonClick(index);
+    }
+    if (id == ResumeNotificationId) {
+        handleResumeNotificationButtonClick(index);
+    }
 });

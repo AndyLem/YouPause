@@ -41,6 +41,21 @@ function handleResumeCommand(){
         }
     }
     if (resumedVideosCount > 0) {
-        showNotification("resumeNotification", "Resumed "+resumedVideosCount+ (resumedVideosCount > 1 ? " videos" : " video"));
+        showNotification(ResumeNotificationId, "Resumed "+resumedVideosCount+ (resumedVideosCount > 1 ? " videos" : " video"),
+        [{title: "Pause back"}]);
+    }
+};
+
+function handlePauseNotificationButtonClick(index){
+    if (index == 0) {
+        console.log("Resume back was clicked on the pause notification");
+        handleResumeCommand();
+    }
+};
+
+function handleResumeNotificationButtonClick(index){
+    if (index == 0) {
+        console.log("Pause back was clicked on the resume notification");
+        handlePauseCommand();
     }
 };
