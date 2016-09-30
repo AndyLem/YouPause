@@ -6,7 +6,12 @@
   "version": "2.1",
   "background": {
     "persistent": true,
-    "scripts": ["scripts/bg.js"]
+    "scripts": [
+      "scripts/globals.js",
+      "scripts/utils.js",
+      "scripts/notifications.js",
+      "scripts/handlers.js",
+      "scripts/bg.js"]
   },  
   "browser_action": {
     "default_icon": "images/youtube-pause-128.png",
