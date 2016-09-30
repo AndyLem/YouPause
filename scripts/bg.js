@@ -29,15 +29,20 @@ function showNotification(id, message){
         type:"basic",
         iconUrl: 'images/youtube-pause-128.png',
         title: "YouTube Pause",
-        message: message,
+        message: message
     },
-    function(notificationId) {});
+    function(notificationId) { });
 };
+
+var pauseCommandsSent = 0;
+var videosPaused = 0;
 
 function handlePauseCommand(){
     pausedTabs = [];
-    var pausedVideosCount = 0;
+    
     chrome.windows.getAll({populate:true}, function(windowsList){
+        pauseCommandsSent = 0;
+        videosPaused = 0;
         for (var i=0;i<windowsList.length;i++){
             for (var j=0;j<windowsList[i].tabs.length;j++){
                 var tab = windowsList[i].tabs[j];
@@ -47,22 +52,16 @@ function handlePauseCommand(){
                 if (isYouTube){
                     console.log('youtube tab ' + tab.id + ' found ' + tab.url);
                     console.log('sending a pause command to the tab ' + tab.id);
+                    pauseCommandsSent++;
                     chrome.tabs.executeScript(tab.id, 
                         {
                             file: "scripts/pauser.js"
                         });
-                    pausedVideosCount++;
                 }
             }
-        }
+        }        
     });
-    if (pausedVideosCount > 0) {
-        showNotification("pauseNotification", "Paused "+pausedVideosCount+" videos");
-    }
-
 };
-
-
 
 function handleResumeCommand(){
     var resumedVideosCount = 0;
@@ -80,8 +79,8 @@ function handleResumeCommand(){
             removeTabFromPausedList(pausedTabs[i]);            
         }
     }
-    if (resumedVideosCount > 0){
-        showNotification("resumeNotification", "Resumed "+resumedVideosCount+" videos");
+    if (resumedVideosCount > 0) {
+        showNotification("resumeNotification", "Resumed "+resumedVideosCount+ (resumedVideosCount > 1 ? " videos" : " video"));
     }
 
 };
@@ -95,12 +94,16 @@ chrome.runtime.onMessage.addListener(
     if (request.pauseHandled) {
         addTabToPausedList(sender.tab.id);
         sendResponse('tab is added to paused list');
+        videosPaused++;
     }
     else if (!request.playerWasRunning) {
          removeTabFromPausedList(sender.tab.id);
          sendResponse('tab is removed from paused list');
     }
-  });
+    pauseCommandsSent--;
+    if (pauseCommandsSent == 0)
+        showNotification("pauseNotification", "Paused "+videosPaused+ (videosPaused > 1 ? " videos" : " video"));
+});
 
 function addTabToPausedList(tabId){
     if (pausedTabs.indexOf(tabId) >= 0) return;
