@@ -1,0 +1,83 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 0px;
+    background-color: #ff7777;
+
+    width:500px; 
+    height:550px
+}
+
+div#paused-videos-list {
+    margin: 10px 20px;
+}
+
+div#paused-videos-table {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+div#settings{
+    background-color: #f0f0f0;
+    height: 50px;
+    padding: 10px;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto !important;
+    margin: 0 auto -20px;
+}
+
+.footer {
+    height: 20px;
+    background-color: #f5f5f5;
+    padding: 5px 10px;
+}
+
+p.copyright {
+    text-align: center;
+    margin: 0;
+    padding: 0; 
+}
+
+table#tabs-table{
+    margin: 0 0px;
+    
+    width:450px;
+}
+
+th.link-col{
+    width: auto;
+}
+
+th.action-col{
+    width:100px;
+}
+
+a.resume-btn {
+    float: right;
+}
+
+.content-width {
+    width: 450px;
+}
+
+h2#paused-title{
+    display:inline;
+}
+
+a#resume-all-btn {
+    float: right;
+    margin-top: 5px;
+}
+
+div#settings h4 {
+    display:inline-block;
+    vertical-align: middle;
+    line-height: 20px;
+}
+
+div.btn-group {
+    float: right;
+    vertical-align: middle;
+}

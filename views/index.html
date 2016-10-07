@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="/views/styles/main.css" rel="stylesheet" type="text/css">
+    <link href="/views/styles/check.css" rel="stylesheet" type="text/css">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <script src="/scripts/libs/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="container">
+            <div id="paused-videos-list">
+                <div class='content-width'>
+                    <h2 id='paused-title'>Paused videos</h2> <a href="#" id="resume-all-btn" class="btn btn-primary">Resume all</a>
+                </div>
+                <div id='paused-videos-table'>
+                    <table class="table table-striped table-condensed" id="tabs-table">
+                        <thead>
+                            <th class="link-col"></th>
+                            <th class="action-col"></th>
+                        </thead>
+                        <tbody id='tabs-table-body'>
+                            <tr>
+                                <td>bla</td>
+                                <td>fre</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id='settings'>
+                <div class='content-width'>
+                    <h4>Show notifications</h4>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-success">
+                            Yes
+                        </label>
+                        <label class="btn btn-danger">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p class="copyright">Copyright 2016, Andy Lemzikov</p>
+    </div>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/scripts/ui/index.js"></script>
+</body>
+
+</html>

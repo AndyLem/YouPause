@@ -24,3 +24,16 @@ function showNotification(id, message, buttons, iconUrl){
 
     });
 };
+
+function notifyPopupAboutPausedTabs(tabs){
+    chrome.runtime.sendMessage({  
+        command: 'videos-paused',
+        tabs:tabs});
+};
+
+function resumeTab(id) {
+    chrome.tabs.executeScript(id, 
+        {
+            file: "scripts/client/resumer.js"
+        });
+};
