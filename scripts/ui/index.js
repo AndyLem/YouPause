@@ -47,13 +47,18 @@ $('#tabs-table').on("click", 'a.resume-btn', function(){
     resumeTab($(this).data('id'));
 });
 
+$('#resume-all-btn').on("click", function(){
+    $('#tabs-table-body>tr>td>a.resume-btn').click();
+});
+
 $('#tabs-table').on("click", 'a.open-tab', function(){
     selectTab($(this).data('id'));
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     console.log(request);
-    if (request.command == 'videos-paused'){
+    if (request.command == 'videos-paused'
+        || request.command == 'resume-youtube-command') {
         renderTabs(request.tabs);
     }
 });
