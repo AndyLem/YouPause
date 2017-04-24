@@ -1,20 +1,26 @@
-    
-function renderTabs(tabsList){
+function renderTabs(tabsList) {
     var list = $('#tabs-table-body');
     list.empty();
-    chrome.tabs.query({}, function(allTabs){
-        for (var i=0;i<tabsList.length;i++){
+
+    chrome.tabs.query({}, function (allTabs) {
+        var rows = 0;
+        for (var i = 0; i < tabsList.length; i++) {
             var tab = getTab(tabsList[i], allTabs);
             if (!tab) continue;
             var row = $(document.createElement('tr'));
             var desc = $(document.createElement('td'))
-                .html('<a href="#" data-id='+tabsList[i]+' class="open-tab">'+tab.title+'</a>')
+                .html('<a href="#" data-id=' + tabsList[i] + ' class="open-tab">' + tab.title + '</a>')
                 .appendTo(row);
             var actions = $(document.createElement('td'))
-                .html('<a href="#" data-id='+tabsList[i]+' class="resume-btn btn btn-primary">Resume</a>')
+                .html('<a href="#" data-id=' + tabsList[i] + ' class="resume-btn btn btn-primary">Resume</a>')
                 .appendTo(row);
             row.appendTo(list);
+            rows++;
         }
+        if (rows == 0)
+            $('#resume-all-btn').addClass('disabled');
+        else
+            $('#resume-all-btn').removeClass('disabled');
     });
 }
 
@@ -48,6 +54,7 @@ $('#tabs-table').on("click", 'a.resume-btn', function(){
 });
 
 $('#resume-all-btn').on("click", function(){
+    if ($('#resume-all-btn').hasClass('disabled')) return;
     console.log('resuming all');
     chrome.runtime.sendMessage({
         command: ResumeAllFromPopupCommand
