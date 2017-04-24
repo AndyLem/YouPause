@@ -7,6 +7,7 @@
   "background": {
     "persistent": true,
     "scripts": [
+      "scripts/gaload.js",
       "scripts/consts.js",
       "scripts/globals.js",
       "scripts/utils.js",
@@ -16,7 +17,7 @@
   "browser_action": {
     "default_icon": "images/youtube-pause-128.png",
     "default_title": "YouTube Pause",
-     "default_popup": "views/index.html"
+    "default_popup": "views/index.html"
   },
   "commands": {
     "pause-youtube-command": {
@@ -34,6 +35,7 @@
       "global": true
     }
   },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "permissions": [
     "tabs",
     "*://*.youtube.com/watch*",

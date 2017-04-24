@@ -23,6 +23,7 @@ function handlePauseCommand(){
             }
         }        
     });
+    _gaq.push(['_trackEvent', "pause-command", 'clicked']);
 };
 
 function handleResumeCommand(){
@@ -41,6 +42,7 @@ function handleResumeCommand(){
             removeTabFromPausedList(pausedTabs[i]);            
         }
     }
+    _gaq.push(['_trackEvent', "resume-command", 'clicked']);
 };
 
 function handlePauseNotificationButtonClick(index){

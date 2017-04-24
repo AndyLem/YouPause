@@ -112,12 +112,14 @@ $('#do-show').on('click', function(){
     console.log('clicked on DO')
     toggleCheckbox($(this));
     setShowNotifications(isChecked($(this)));
+    _gaq.push(['_trackEvent', "ShowNotifications-true", 'clicked']);
 });
 
 $('#dont-show').on('click', function(){
     console.log('clicked on DONT')
     toggleCheckbox($(this));
     setShowNotifications(isChecked($(this)));
+    _gaq.push(['_trackEvent', "ShowNotifications-false", 'clicked']);
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
