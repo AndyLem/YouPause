@@ -10,18 +10,22 @@ function removeTabFromPausedList(tabId){
     pausedTabs.splice(index, 1);
 };
 
-function showNotification(id, message, buttons, iconUrl){
-    chrome.notifications.getAll(function(list){
-        if (list[id]) chrome.notifications.clear(id);
-        chrome.notifications.create(id,
-            {
-                type:"basic",
+function showNotification(id, message, buttons, iconUrl) {
+    chrome.storage.sync.get({
+        showNotifications: DefaultShowNotificationsOption
+    }, function (options) {
+        if (!options.showNotifications) return;
+        chrome.notifications.getAll(function (list) {
+            if (list[id]) chrome.notifications.clear(id);
+            chrome.notifications.create(id, {
+                type: "basic",
                 iconUrl: iconUrl || 'images/youtube-pause-128-borders.png',
                 title: "YouTube Pause",
                 message: message,
                 buttons: buttons
             });
 
+        });
     });
 };
 

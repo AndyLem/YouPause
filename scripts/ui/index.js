@@ -74,6 +74,24 @@ function setCheckbox(trueElement, value) {
     }
 }
 
+function setShowNotifications(show) {
+    console.log('Show notifications: ' + show);
+    chrome.storage.sync.set({
+        showNotifications: show
+    }, function () {});
+}
+
+function restoreOptions() {
+    chrome.storage.sync.get({
+        showNotifications: DefaultShowNotificationsOption
+    }, function (options) {
+        console.log('restored options')
+        console.log(options);
+        setCheckbox($('#do-show'), options.showNotifications);
+    });
+}
+
+
 $('#tabs-table').on("click", 'a.resume-btn', function(){
     resumeTab($(this).data('id'));
 });
@@ -90,6 +108,18 @@ $('#tabs-table').on("click", 'a.open-tab', function(){
     selectTab($(this).data('id'));
 });
 
+$('#do-show').on('click', function(){
+    console.log('clicked on DO')
+    toggleCheckbox($(this));
+    setShowNotifications(isChecked($(this)));
+});
+
+$('#dont-show').on('click', function(){
+    console.log('clicked on DONT')
+    toggleCheckbox($(this));
+    setShowNotifications(isChecked($(this)));
+});
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     console.log(request);
     if (request.command == NotifyPopupAboutPausedVideos) {
@@ -102,3 +132,6 @@ chrome.runtime.sendMessage({
 }, function(response) {
     renderTabs(response);
 });
+
+document.addEventListener('DOMContentLoaded', restoreOptions);
+

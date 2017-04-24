@@ -10,3 +10,5 @@ const ActionGetPausedTabsCommand = 'action-get-list';
 const ResumeAllFromPopupCommand = 'popup-resume-all';
 
 const NotifyPopupAboutPausedVideos = 'videos-paused';
+
+const DefaultShowNotificationsOption = false;
