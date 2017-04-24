@@ -27,7 +27,7 @@ function showNotification(id, message, buttons, iconUrl){
 
 function notifyPopupAboutPausedTabs(tabs){
     chrome.runtime.sendMessage({  
-        command: 'videos-paused',
+        command: NotifyPopupAboutPausedVideos,
         tabs:tabs});
 };
 

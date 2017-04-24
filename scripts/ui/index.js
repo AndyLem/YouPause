@@ -28,7 +28,7 @@ function getTab(id, allTabs){
 
 function resumeTab(id){
     chrome.runtime.sendMessage({
-        command: 'action-resume',
+        command: ActionResumeCommand,
         id:id
     });
 }
@@ -50,7 +50,7 @@ $('#tabs-table').on("click", 'a.resume-btn', function(){
 $('#resume-all-btn').on("click", function(){
     console.log('resuming all');
     chrome.runtime.sendMessage({
-        command: 'popup-resume-all'
+        command: ResumeAllFromPopupCommand
     });
 });
 
@@ -60,13 +60,13 @@ $('#tabs-table').on("click", 'a.open-tab', function(){
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     console.log(request);
-    if (request.command == 'videos-paused') {
+    if (request.command == NotifyPopupAboutPausedVideos) {
         renderTabs(request.tabs);
     }
 });
 
 chrome.runtime.sendMessage({
-    command: 'action-get-list'
+    command: ActionGetPausedTabsCommand
 }, function(response) {
     renderTabs(response);
 });
