@@ -1,7 +1,7 @@
 console.log('resume command received');
 
 var player = document.getElementById('movie_player');
-var isPlayerRunning = player && !player.classList.contains('paused-mode'); 
+var isPlayerRunning = player && player.classList.contains('playing-mode'); 
 var isResumeHandled = false;
 if (isPlayerRunning) {
     console.log('player is already running');
