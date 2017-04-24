@@ -49,6 +49,31 @@ function selectTab(id){
     });    
 }
 
+function toggleCheckbox(element) {
+    var wasSelected = element.hasClass('active');
+    if (wasSelected) return;
+    var otherElement = element.parent().children('label[id!="'+element[0].id+'"]');
+
+    element.addClass('active');
+    otherElement.removeClass('active');        
+
+    element.addClass(element.data('selected-class'));
+    otherElement.removeClass(otherElement.data('selected-class'));
+}
+
+function isChecked(element) {
+    var isTrueElement = element.data('is-true') || false;
+    return (isTrueElement && element.hasClass('active'));
+}
+
+function setCheckbox(trueElement, value) {
+    if (value) trueElement.click();
+    else {
+        var otherElement = trueElement.parent().children('label[id!="'+trueElement[0].id+'"]');
+        otherElement.click();
+    }
+}
+
 $('#tabs-table').on("click", 'a.resume-btn', function(){
     resumeTab($(this).data('id'));
 });
