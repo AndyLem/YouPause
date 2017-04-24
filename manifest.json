@@ -15,7 +15,8 @@
   },  
   "browser_action": {
     "default_icon": "images/youtube-pause-128.png",
-    "default_title": "YouTube Pause"
+    "default_title": "YouTube Pause",
+     "default_popup": "views/index.html"
   },
   "commands": {
     "pause-youtube-command": {
@@ -36,6 +37,7 @@
   "permissions": [
     "tabs",
     "*://*.youtube.com/watch*",
-    "notifications"
+    "notifications",
+    "storage"
   ]
 }

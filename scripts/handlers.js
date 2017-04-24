@@ -32,10 +32,7 @@ function handleResumeCommand(){
         console.log('resuming a player on '+ pausedTabs[i])
         try {
             resumeCommandsSent++;
-            chrome.tabs.executeScript(pausedTabs[i], 
-                {
-                    file: "scripts/client/resumer.js"
-                });
+            resumeTab(pausedTabs[i]);
                 
         } catch (error) {
             resumeCommandsSent--;
@@ -60,16 +57,18 @@ function handleResumeNotificationButtonClick(index){
     }
 };
 
-function handleClientScriptMessage(request, tab, sendResponse){
-    console.log("message received from a content script: " + tab.url + ' tab id: ' + tab.id);
-    console.log(request);
-    if (request.command = PauseCommand) {
-        handlePauseCommandCallback(request, tab, sendResponse);
+function handleClientScriptMessage(request, sender, sendResponse){
+    if (request.command == PauseCommand) {
+        handlePauseCommandCallback(request, sender.tab, sendResponse);
+    } else if (request.command == ResumeCommand) {
+        handleResumeCommandCallback(request, sender.tab, sendResponse);
+    } else if (request.command == ActionResumeCommand) {
+        handlePopupActionResume(request, sendResponse);
+    } else if (request.command == ActionGetPausedTabsCommand) {
+        handleGetPausedTabsCommand(request, sendResponse);
+    } else if (request.command == ResumeAllFromPopupCommand) {
+        handleResumeCommand();
     }
-    if (request.command = ResumeCommand) {
-        handleResumeCommandCallback(request,tab, sendResponse);
-    }
-    
 };
 
 function handlePauseCommandCallback(request, tab, sendResponse){
@@ -92,6 +91,7 @@ function handlePauseCommandCallback(request, tab, sendResponse){
             pausedTabs = lastPausedTabs;
             showNotification(NothingToPauseNotification, "No videos to pause");
         }
+        notifyPopupAboutPausedTabs(pausedTabs);
     }
 }
 
@@ -109,6 +109,16 @@ function handleResumeCommandCallback(request, tab, sendResponse){
         else {
             showNotification(NothingToResumeNotification, "No videos to resume");
         }
+        notifyPopupAboutPausedTabs([]);
     }
 }
 
+function handlePopupActionResume(request, sendResponse) {
+    resumeTab(request.id);
+    removeTabFromPausedList(request.id);
+    notifyPopupAboutPausedTabs(pausedTabs);
+};
+
+function handleGetPausedTabsCommand(request, sendResponse){
+    sendResponse(pausedTabs);
+}
