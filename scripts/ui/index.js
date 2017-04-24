@@ -48,7 +48,10 @@ $('#tabs-table').on("click", 'a.resume-btn', function(){
 });
 
 $('#resume-all-btn').on("click", function(){
-    $('#tabs-table-body>tr>td>a.resume-btn').click();
+    console.log('resuming all');
+    chrome.runtime.sendMessage({
+        command: 'popup-resume-all'
+    });
 });
 
 $('#tabs-table').on("click", 'a.open-tab', function(){
@@ -57,8 +60,7 @@ $('#tabs-table').on("click", 'a.open-tab', function(){
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     console.log(request);
-    if (request.command == 'videos-paused'
-        || request.command == 'resume-youtube-command') {
+    if (request.command == 'videos-paused') {
         renderTabs(request.tabs);
     }
 });

@@ -66,6 +66,8 @@ function handleClientScriptMessage(request, sender, sendResponse){
         handlePopupActionResume(request, sendResponse);
     } else if (request.command == ActionGetPausedTabsCommand) {
         handleGetPausedTabsCommand(request, sendResponse);
+    } else if (request.command == ResumeAllFromPopupCommand) {
+        handleResumeCommand();
     }
 };
 
