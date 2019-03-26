@@ -6,6 +6,12 @@ chrome.commands.onCommand.addListener(function(command) {
     if (command == ResumeCommand) {
         handleResumeCommand();
     }
+    if (command == NextCommand) {
+        handleNextCommand();
+    }
+    if (command == PrevCommand) {
+        handlePrevCommand();
+    }
 });
 
 chrome.tabs.onRemoved.addListener(function(tabId, info) {

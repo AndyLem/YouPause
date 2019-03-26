@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "YouPause",
-  "description": "Allows to pause YouTube videos using hotkeys",
-  "version": "4.0",
+  "description": "Allows to control YouTube videos using hotkeys",
+  "version": "4.1",
   "background": {
     "persistent": true,
     "scripts": [
@@ -32,6 +32,20 @@
         "default": "Ctrl+Shift+2"
       },
       "description": "Resumes previously paused YouTube videos",
+      "global": true
+    },
+    "next-youtube-command": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+3"
+      },
+      "description": "Selects next YouTube video",
+      "global": true
+    },
+    "prev-youtube-command": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+4"
+      },
+      "description": "Selects previous YouTube video",
       "global": true
     }
   },
