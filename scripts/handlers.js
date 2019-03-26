@@ -1,29 +1,60 @@
 function handlePauseCommand(){
     lastPausedTabs = pausedTabs;
     pausedTabs = [];
-    
+    videosPaused = 0;
+    pauseCommandsSent = 0;
+    handleBroadcastEvent(executePauseInYoutubeTab, "pause-command");
+};
+
+function handleNextCommand() {
+    handleBroadcastEvent(executeNextInYoutubeTab, "next-command");
+};
+
+function handlePrevCommand() {
+    handleBroadcastEvent(executePrevInYoutubeTab, "prev-command");
+};
+
+function handleBroadcastEvent(commandExecutor, eventName){
     chrome.windows.getAll({populate:true}, function(windowsList){
-        pauseCommandsSent = 0;
-        videosPaused = 0;
         for (var i=0;i<windowsList.length;i++){
             for (var j=0;j<windowsList[i].tabs.length;j++){
                 var tab = windowsList[i].tabs[j];
-
                 var isYouTube = tab.url.toLowerCase().indexOf('youtube.com/watch?v=') >= 0; 
-
                 if (isYouTube){
-                    console.log('youtube tab ' + tab.id + ' found ' + tab.url);
-                    console.log('sending a pause command to the tab ' + tab.id);
-                    pauseCommandsSent++;
-                    chrome.tabs.executeScript(tab.id, 
-                        {
-                            file: "scripts/client/pauser.js"
-                        });
+                    commandExecutor(tab);
                 }
             }
         }        
     });
-    _gaq.push(['_trackEvent', "pause-command", 'clicked']);
+    _gaq.push(['_trackEvent', eventName, 'clicked']);
+};
+
+function executeNextInYoutubeTab(tab) {
+    console.log('youtube tab ' + tab.id + ' found ' + tab.url);
+    console.log('sending a next command to the tab ' + tab.id);
+    chrome.tabs.executeScript(tab.id, 
+        {
+            file: "scripts/client/next.js"
+        });
+};
+
+function executePrevInYoutubeTab(tab) {
+    console.log('youtube tab ' + tab.id + ' found ' + tab.url);
+    console.log('sending a prev command to the tab ' + tab.id);
+    chrome.tabs.executeScript(tab.id, 
+        {
+            file: "scripts/client/prev.js"
+        });
+};
+
+function executePauseInYoutubeTab(tab) {
+    console.log('youtube tab ' + tab.id + ' found ' + tab.url);
+    console.log('sending a pause command to the tab ' + tab.id);
+    pauseCommandsSent++;
+    chrome.tabs.executeScript(tab.id, 
+        {
+            file: "scripts/client/pauser.js"
+        });
 };
 
 function handleResumeCommand(){
@@ -70,7 +101,19 @@ function handleClientScriptMessage(request, sender, sendResponse){
         handleGetPausedTabsCommand(request, sendResponse);
     } else if (request.command == ResumeAllFromPopupCommand) {
         handleResumeCommand();
+    } else if (request.command == NextCommand) {
+        handleNextCallback(request, sender, sendResponse)
+     } else if (request.command == PrevCommand) {
+        handlePrevCallback(request, sender, sendResponse)
     }
+};
+
+function handleNextCallback(request, sender, sendResponse) {
+    sendResponse("Next is executed in the tab");
+};
+
+function handlePrevCallback(request, sender, sendResponse) {
+    sendResponse("Prev is executed in the tab");
 };
 
 function handlePauseCommandCallback(request, tab, sendResponse){
